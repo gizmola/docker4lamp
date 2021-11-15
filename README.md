@@ -27,10 +27,31 @@ APP_NAME=your_project
 docker-compose -d up
 </pre></div>
 
-## When you are satisfied with your setup, remove the docker4lamp/.git directory and start developing!
+## Satisfied with your setup?
+ Stop your containers  
+ Remove the docker4lamp/.git directory.
+ Optionally, rename docker4lamp to a project name of your choosing
+ start developing! 
 
 ## Developing your code
-Your code goes into the docker4lamp/project directory.  docker4LAMP assumes you will be developing a front controller style app, with the webroot set to the project/public directory.  
+Your code goes into the docker4lamp/project directory.  
+docker4LAMP assumes you will be developing a front controller style app, with the webroot set to the project/public directory.
+
+## Running Composer inside the Container
+You can verify the names of your containers from your workstation by running
+<div class="highlight highlight-source-shell"><pre>
+docker ps
+</pre></div>
+Check the name column of the output.  The Apache/PHP container will have a name like:  your_project-server.
+
+You will substitute the server container name for your project, shown in the name column from the docker ps command
+docker exec
+
+Access the container using Docker exec
+<div class="highlight highlight-source-shell"><pre># connect as user www-data
+docker exec -it -u www-data:www-data -w /var/www/html/project your_project-server /bin/bash
+</pre></div>
+
 
 **[Usage](#usage)** |
 **[Features](#feature-overview)** |
