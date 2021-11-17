@@ -1,3 +1,11 @@
+<?php
+$d = date('l \t\h\e jS \o\f F, Y \a\t h:i:s A');
+function simpleTestString($date) {
+    $string = 'Welcome to the Docker4LAMP default page!';
+    $string .= " | " . "Today is $date";
+    return $string;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,8 +27,9 @@
                 <div class="container-fluid">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="http://localhost:8080">phpMyAdmin</a></li>
-                        <li class="nav-item"><a class="nav-link" href="phpinfo.php">phpinfo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="phpinfo.php">phpinfo</a></li>                        
                     </ul>
+                    <?php echo simpleTestString($d); ?>
                 </div>
             </nav>
         </header>
@@ -40,7 +49,8 @@
                 </p>
                 <ul>
                     <li>You may need to edit the site.conf file in the docker/server/apache directory.</li>                    
-                    <li>You may want to edit the my.cnf in the docker/db/mysql directory.</li> 
+                    <li>You may want to edit the my.cnf in the docker/db/mysql directory.</li>
+                    <li>You may want to add files to the docker/server/php/conf.d directory.</li>  
                 </ul>
             </main>
         </section>
@@ -59,4 +69,3 @@
         </footer>
     </body>
 </html>
-

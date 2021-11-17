@@ -52,6 +52,46 @@ Access the container using Docker exec
 docker exec -it -u www-data:www-data -w /var/www/html/project your_project-server /bin/bash
 </pre></div>
 
+Once you are exec'd in the container you can run composer.  This example will create a project composer.json and 
+<div class="highlight highlight-source-shell"><pre>
+composer require monolog/monolog
+</pre></div>
+
+## Debugging with XDebug
+The base server image includes XDebug, as well as a preconfigured xdebug.ini in the server/php/conf.d directory. 
+
+# VSCode
+You must install the [PHP Debug Extension](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) by Felix Becker.
+A verified working VSCode launch.json is included below:
+<div class="highlight highlight-source-shell"><pre>
+    {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Xdebug for Docker",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            //"stopOnEntry": true,
+            //"log": true,
+            "pathMappings": {
+                "/var/www/html/project": "${workspaceFolder}/project"
+            }
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 9003
+        }
+    ]
+}
+</pre></div>
 
 **[Usage](#usage)** |
 **[Features](#feature-overview)** |
