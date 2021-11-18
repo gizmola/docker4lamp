@@ -19,6 +19,10 @@ function simpleTestString($date) {
                 padding-right: 20px;
                 padding-left: 20px;
             }
+            h1 {
+                font-weight: bold;
+                color: darkorchid;
+            }
           </style>    
     </head>
     <body>
@@ -27,7 +31,7 @@ function simpleTestString($date) {
                 <div class="container-fluid">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="http://localhost:8080">phpMyAdmin</a></li>
-                        <li class="nav-item"><a class="nav-link" href="phpinfo.php">phpinfo</a></li>                        
+                        <li class="nav-item"><a class="nav-link" href="phpinfo.php">phpInfo</a></li>                        
                     </ul>
                     <?php echo simpleTestString($d); ?>
                 </div>
@@ -59,10 +63,10 @@ function simpleTestString($date) {
                 Created by David Rolston 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/gizmola" title="GitHub">GitHub</a>
+                        <a class="nav-link" href="https://github.com/gizmola" title="GitHub"><img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg" /></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.twitter.com/gizmola" title="Twitter">Twitter</a>
+                        <a class="nav-link" href="https://www.twitter.com/gizmola" title="Twitter"><img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/twitter.svg" /></a>
                     </li>
                 </ul>
             </div>
