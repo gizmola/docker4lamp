@@ -22,6 +22,7 @@ function simpleTestString($date) {
             h1 {
                 font-weight: bold;
                 color: darkorchid;
+                text-shadow: 2px 2px 4px gray;
             }
           </style>    
     </head>
