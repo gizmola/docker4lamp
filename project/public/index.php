@@ -50,13 +50,17 @@ function simpleTestString($date) {
                 animation: pulsate 1.5s infinite alternate;  
                 border: 0.2rem solid #fff;
                 border-radius: 2rem;
-                padding: 0.4em;
+                padding: 0.5em;
                 box-shadow: 0 0 .2rem #fff,
                             0 0 .2rem #fff,
                             0 0 2rem #bc13fe,
                             0 0 0.8rem #bc13fe,
                             0 0 2.8rem #bc13fe,
                             inset 0 0 1.3rem #bc13fe; 
+            }
+            h2, h3, h4, h5 {
+                color: darkorchid;
+                text-shadow: -1px 1px 2px white;
             }
             .logos {
                 margin: 1.2rem;
@@ -66,6 +70,9 @@ function simpleTestString($date) {
                 margin: 5px 5px;
                 width: 64px;
                 height: 64px;
+            }
+            nav {
+                margin-bottom: .8rem;
             }
             @keyframes pulsate { 
                 100% {           
