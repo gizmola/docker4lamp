@@ -1,5 +1,8 @@
-<p align="center">
+<p align="center" width="100%">
     <h1 align="center">Docker 4 LAMP</h1>
+</p>
+<p align="center" width="100%">
+<img height="276" width="552" src="assets/docker4lamp.png" alt="Docker4LAMP logo">
 </p>
 
 **[About](#about-docker-4-lamp)** |
