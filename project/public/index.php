@@ -11,9 +11,9 @@ function simpleTestString($date) {
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset=UTF-8>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!-- Bootstrap CSS only -->
+        <!-- Bootstrap 5 css -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.0.0/svg-loader.min.js" async></script>
         <style>
             .neonText {
@@ -32,18 +32,16 @@ function simpleTestString($date) {
                 background-color: #010a01;
             }
             main {
-                width: 70%;
                 font-size: 18px;
                 color: #F0F0F0;              
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
                 align-items: center;  
                 padding-right: 20px;
                 padding-left: 20px;
+                margin-bottom: 20%;
             }
             h1 {
-                margin: 1.2rem;
+                display: table;
+                margin: 1.5rem auto;
                 text-align: center;
                 font-size: 3.5rem;
                 font-weight: bold;
@@ -64,12 +62,15 @@ function simpleTestString($date) {
             }
             .logos {
                 margin: 1.2rem;
-                text-align: center;    
+                text-align: center;   
             }
             svg {
                 margin: 5px 5px;
                 width: 64px;
                 height: 64px;
+            }
+            footer {
+                padding: .5rem;
             }
             nav {
                 margin-bottom: .8rem;
@@ -107,13 +108,13 @@ function simpleTestString($date) {
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav aria-label="Site Menu" class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="http://localhost:8080">phpMyAdmin</a></li>
                         <li class="nav-item"><a class="nav-link" href="phpinfo.php">phpInfo</a></li>                        
                     </ul>
-                    <?php echo simpleTestString($d); ?>
+                    <span class="navbar-text text-truncate text-right"><?php echo simpleTestString($d); ?></span>
                 </div>
             </nav>
         </header>
@@ -126,7 +127,7 @@ function simpleTestString($date) {
                 <a href="https://www.mysql.com/" title="MySQL open source database"><svg role="img" xmlns="http://www.w3.org/2000/svg" data-src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/mysql.svg" fill="#4479A1"></svg></a>
                 <a href="https://httpd.apache.org/" title="Apache HTTP Server project"><svg role="img" xmlns="http://www.w3.org/2000/svg" data-src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/php.svg" fill="#777BB4"></svg></a>
             </p>
-            <section class="articles">
+            <section class="container">
                 <article>
                     <h2>About</h2>
                     <p>This is a simple jump start Docker development environment skeleton that provides a current Linux-Apache-MySQL-PHP environment on your workstation. It is meant to be the basis for your LAMP projects</p>
@@ -161,18 +162,26 @@ function simpleTestString($date) {
                 </article>
             </section>
         </main>
-        <footer class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
-            <div class="container-fluid">        
-                Created by David Rolston 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/gizmola" title="GitHub"><img height="32" width="32" alt="github logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg" /></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.twitter.com/gizmola" title="Twitter"><img height="32" width="32" alt="twitter logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/twitter.svg" /></a>
-                    </li>
-                </ul>
-            </div>
+        <footer class="fixed-bottom bg-light">    
+            <nav aria-label="footer menu" class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>             
+                    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.gizmola.com/" title="Gizmola.com">Created by David Rolston</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/gizmola" title="GitHub"><img class="d-inline-block align-text-top" height="32" width="32" alt="github logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg" /></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.twitter.com/gizmola" title="Twitter"><img class="d-inline-block align-text-top" height="32" width="32" alt="twitter logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/twitter.svg" /></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </footer>
     </body>
 </html>
