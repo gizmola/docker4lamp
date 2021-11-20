@@ -5,12 +5,14 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libpng-dev \
         libzip-dev \
+        libicu-dev\
         git \
         zip \
         unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install mysqli pdo pdo_mysql opcache zip \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl mysqli pdo pdo_mysql opcache zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # Install XDebug.  If you do not want XDebug, you can comment out the next line
 RUN pecl install xdebug-3.1.1 \
