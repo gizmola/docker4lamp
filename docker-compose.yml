@@ -1,13 +1,26 @@
 version: "3.7"
 services:
+  mkcert:
+    build:
+      context: ./docker/mkcert
+      dockerfile: Dockerfile
+    image: ${APP_NAME}-mkcert:latest  
+    container_name: "${APP_NAME}-mkcert"
+    environment:
+      domain: "*.${APP_NAME}.localhost,localhost,127.0.0.1,::1"
+    volumes:
+      - mkcert-data:/root/.local/share/mkcert 
   server:
     build:
       context: ./docker/server
       dockerfile: Dockerfile
-    container_name: "${APP_NAME}-server"  
+    container_name: "${APP_NAME}-server"
+    environment:
+      APP_NAME: "${APP_NAME}"  
     restart: on-failure
     volumes:
-      - "./project/:/var/www/html/project"
+      - mkcert-data:/usr/local/apache2/cert/
+      - "./project/:/var/www/html/project/"
     networks:
       - devnet
     ports:
@@ -51,3 +64,5 @@ networks:
 volumes:
   db-data:
     name: "${APP_NAME}_db-data"
+  mkcert-data:
+    name: "${APP_NAME}_mkcert-data"

@@ -16,14 +16,17 @@ RUN apt-get update \
 RUN pecl install xdebug-3.1.1 \
     && docker-php-ext-enable xdebug
 # Use the development configuration by default
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"    
-# Apache configuration
-ENV APACHE_DOCUMENT_ROOT /var/www/html/project/public/
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf    
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"     
 # PHP Extensions and configuration modifications.
 # Edit the /php/conf.d/local.ini file to override basic php.ini settings.
 COPY /php/conf.d/* $PHP_INI_DIR/conf.d/
 # Add Composer
 COPY --from=composer:2.0 /usr/bin/composer /usr/local/bin/composer
+# Apache configuration
+COPY /apache/conf/project-site.conf /etc/apache2/sites-available/project-site.conf
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf &&\
+    a2enmod ssl &&\
+    a2enmod rewrite &&\
+    a2dissite 000-default &&\
+    a2ensite project-site
 
