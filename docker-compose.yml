@@ -27,7 +27,19 @@ services:
       - "${APP_PORT}:80"
       - "${APP_PORT_SSL}:443"
     depends_on:
-      - db 
+      - db
+  node:
+    image: node:latest
+    container_name: "${APP_NAME}-node"
+    working_dir: /var/www/html/project/
+    volumes:
+      - mkcert-data:/usr/local/apache2/cert/
+      - "./project/:/var/www/html/project/"
+    networks:
+      - devnet
+    depends_on:
+      - server
+    restart: on-failure
   db:
     image: mysql:8.0.27
     restart: always
@@ -57,6 +69,7 @@ services:
     - "${PHPMA_PORT}:80"
     depends_on:
       - db
+      - mkcert
 networks:
     devnet:
       name: ${APP_NAME}
