@@ -7,7 +7,7 @@ services:
     image: ${APP_NAME}-mkcert:latest  
     container_name: "${APP_NAME}-mkcert"
     environment:
-      domain: "*.${APP_NAME}.localhost,localhost,127.0.0.1,::1"
+      domain: "*.${APP_NAME}.${TLD},localhost,127.0.0.1,::1"
     volumes:
       - mkcert-data:/root/.local/share/mkcert 
   server:

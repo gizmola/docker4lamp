@@ -10,6 +10,7 @@
 **[Quick Start](#quick-start)** |
 **[Settings](#settings)** |
 **[Development](#development)** |
+**[Localhost SSL](#localhost-ssl)** |
 **[Composer](#composer)** |
 **[MySQL](#mysql)** |
 **[XDebug](#xdebug)** |
@@ -31,6 +32,7 @@ It is intended to provide everything needed to have a structured development LAM
 - xdebug-3.1.1 (and documentation for connecting the Visual Studio Code debugger to the container)
 - MySQL8
 - PhpMyAdmin running by default on port 8080
+- A mkcert container that generates certs for a dev domain
 - Allowance for customization of mysql, php and apache configuration files
 - Composer installed in the Server container
 - A simple .env file that handles container naming, allowing for multiple unique container setups and port changes through simple text edits
@@ -87,6 +89,48 @@ docker-compose -d up
  - start adding code, and/or packages with composer/composer.json
  - Add your docker4lamp project to git
 
+## Localhost SSL
+
+docker4compose uses the [mkcert project](https://github.com/FiloSottile/mkcert) to generate valid SSL certificates for your _docker4lamp_ environment.  This relieves you of having to install and run mkcert yourself, or reconfiguring the apache vhost.  
+
+All you need to do is retrieve the root cert from the container and install it in your workstation's local certificate store.
+
+By default, the cert will allow for valid SSL access to *.**APP_NAME**.localhost
+
+### Installing the cert
+
+- The /cert directory is designed for you to keep a locally accessible copy of the generated certs
+- Step #1: Copy the certs from the container
+
+<div class="highlight highlight-source-shell"><pre>
+docker cp mkcert:/root/.local/share/mkcert/mkcert/ ./cert/
+</pre></div>
+
+- Step #2: Install the root cert on your workstation
+
+For __Mac/OSX__:
+
+<div class="highlight highlight-source-shell"><pre>
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ./cert/mkcert/rootCA.pem
+</pre></div>
+
+For __Windows__:
+
+<div class="highlight highlight-source-shell"><pre>
+certutil.exe -addstore root ./cert/mkcert/rootCA.pem
+</pre></div>
+
+- Step #3: Add an entry to your /etc/hosts file for your dev domain.  Assuming that your **APP_NAME** is "myproject"
+
+<div class="highlight highlight-source-shell"><pre>
+127.0.0.1 myproject.localhost www.myproject.localhost
+</pre></div>
+
+_Your browser should see your development server as valid when you open https://www.myproject.localhost_
+
+#### Note for Firefox users:
+By default Firefox does not trust root certs installed in the operating system.  [You can work around this using Mozilla's documentation.](https://support.mozilla.org/en-US/kb/setting-certificate-authorities-firefox)
+
 ### Developing your code
 
 Your code goes into the docker4lamp/_project_ directory. Don't change the name of this directory unless you are clear on changes you would need to make to your apache and debug settings
@@ -116,6 +160,7 @@ docker exec -it -u www-data:www-data -w /var/www/html/project your_project-serve
 Once you are exec'd in the container you can run composer.  This example will create a project composer.json and install the monolog component library
 
 <div class="highlight highlight-source-shell"><pre>
+# Example
 composer require monolog/monolog
 </pre></div>
 
