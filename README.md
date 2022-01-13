@@ -13,6 +13,7 @@
 **[Localhost SSL](#localhost-ssl)** |
 **[Composer](#composer)** |
 **[MySQL](#mysql)** |
+**[Node](#node)** |
 **[XDebug](#xdebug)** |
 **[Contributing](#contributing)** |
 **[License](#license)**
@@ -33,6 +34,7 @@ It is intended to provide everything needed to have a structured development LAM
 - MySQL8
 - PhpMyAdmin running by default on port 8080
 - A mkcert container that generates certs for a dev domain
+- A Node container for running npm and yarn
 - Allowance for customization of mysql, php and apache configuration files
 - Composer installed in the Server container
 - A simple .env file that handles container naming, allowing for multiple unique container setups and port changes through simple text edits
@@ -208,6 +210,44 @@ If you want to add additional databases, users etc. use docker to connect to the
 docker exec -it your_project-database mysql -u root -p your_project
 </pre></div>
 
+## Node
+
+### Running npm or yarn commands
+
+The node service is already configured to create files and modules inside your project directory.  It provides a way to integrate your react,vue,sass etc. components without having to install node modules and components on your local server.  You can run these tools when you need them.
+
+One excellent way of integrating javascript/scss is to use the symfony [webpack encore](https://symfony.com/doc/current/frontend.html) package. 
+
+The ideal way to use the docker4lamp node service is to execute **docker-compose run --rm node ....** when you need yarn or npm. 
+
+Keep in mind, that the node service is not intended to persist, so make sure you use the **--rm** flag, or you will create new containers filling up your system.  
+
+### To demonstrate use of the Node container, here is a simple howto that installs the node sass compiler.
+- under project create an src/scss directory.  Your sass files will go here.
+- under the public directory create a css directory.  The sass compiler will place the file here.
+- create the file src/scss/main.scss
+- Add some simple scss code like this:
+<div class="highlight highlight-source-shell"><pre>
+    $blue: blue;
+    body {
+        background: $blue;
+    }
+</pre></div>
+
+- Install and configure the sass compiler
+
+<div class="highlight highlight-source-shell"><pre># Example: Install Yarn and add the SASS compiler
+docker-compose run --rm node yarn install
+# This makes your package.json file.  Complete the prompts as you prefer
+docker-compose run --rm node yarn init
+# Install sass with the -D flag for development dependency
+docker-compose run --rm node yarn add sass -D
+# Run the sass compiler and watch for changes
+docker-compose run --rm node yarn sass -w src/scss:public/css
+</pre></div>
+
+_The sass compiler will create /public/css/main.css as well as main.css.map and will continue to watch for changes you make to /src/scss/main.scss_
+
 ## XDebug
 
 The base server image includes XDebug, as well as a preconfigured _xdebug.ini_ in the _server/php/conf.d_ directory 
@@ -256,4 +296,4 @@ A verified working VSCode launch.json is included below:
 
 **[MIT License](LICENSE.md)**
 
-Copyright (c) 2021 **[David Rolston](https://github.com/gizmola)**
+Copyright (c) 2021-2022 **[David Rolston](https://github.com/gizmola)**
