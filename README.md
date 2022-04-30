@@ -128,7 +128,7 @@ certutil.exe -addstore root ./cert/mkcert/rootCA.pem
 _If you are using windows the hosts file is located at **c:\Windows\System32\Drivers\etc\hosts**.  You must open it with an editor that was "Run as Administrator" in order to save it._
 
 <div class="highlight highlight-source-shell"><pre>
-127.0.0.1 myproject.test www.d4lprjct.test
+127.0.0.1 d4lprjctt.test www.d4lprjct.test
 </pre></div>
 
 _Your browser should see your development server as valid when you open https://www.d4lprjct.test
