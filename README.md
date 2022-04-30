@@ -107,7 +107,7 @@ By default, the cert will allow for valid SSL access to *.**APP_NAME**.test
 - Step #1: Copy the certs from the container
 
 <div class="highlight highlight-source-shell"><pre>
-docker cp **APP_NAME**-mkcert:/root/.local/share/mkcert/ ./cert/
+docker cp APP_NAME-mkcert:/root/.local/share/mkcert/ ./cert/
 </pre></div>
 
 - Step #2: Install the root cert on your workstation
@@ -119,25 +119,26 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 </pre></div>
 
 For __Windows__:
-
+**NOTE:** You must be in a shell that was Run as Administrator!
 <div class="highlight highlight-source-shell"><pre>
 certutil.exe -addstore root ./cert/mkcert/rootCA.pem
 </pre></div>
 
-- Step #3: Add an entry to your /etc/hosts file for your dev domain.  Assuming that your **APP_NAME** is "myproject".  If you are using windows the hosts file is located at c:\Windows\System32\Drivers\etc\hosts.  You must open it with an editor that was "Run as Administrator" in order to save it.
+- Step #3: Add an entry to your */etc/hosts* file for your dev domain.  Assuming that your **APP_NAME** is "d4lprjct":
+_If you are using windows the hosts file is located at **c:\Windows\System32\Drivers\etc\hosts**.  You must open it with an editor that was "Run as Administrator" in order to save it._
 
 <div class="highlight highlight-source-shell"><pre>
-127.0.0.1 myproject.test www.myproject.test
+127.0.0.1 myproject.test www.d4lprjct.test
 </pre></div>
 
-_Your browser should see your development server as valid when you open https://www.myproject.test_
+_Your browser should see your development server as valid when you open https://www.d4lprjct.test
 
 #### Note for Firefox users:
 By default Firefox does not trust root certs installed in the operating system.  [You can work around this using Mozilla's documentation.](https://support.mozilla.org/en-US/kb/setting-certificate-authorities-firefox)
 
 ### Developing your code
 
-Your code goes into the docker4lamp/_project_ directory. Don't change the name of this directory unless you are clear on changes you would need to make to your apache and debug settings
+Your code goes into the docker4lamp/_project_ directory. Don't change the name of this directory unless you are clear on changes you would need to make to the apache and debug settings
 
 _docker4LAMP_ assumes you will be developing a front controller style app, with the webroot set to the _project/ public_ directory
 
