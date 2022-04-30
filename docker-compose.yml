@@ -16,7 +16,8 @@ services:
       dockerfile: Dockerfile
     container_name: "${APP_NAME}-server"
     environment:
-      APP_NAME: "${APP_NAME}"  
+      APP_NAME: "${APP_NAME}"
+      TLD: "${TLD}" 
     restart: on-failure
     volumes:
       - mkcert-data:/usr/local/apache2/cert/
@@ -28,6 +29,7 @@ services:
       - "${APP_PORT_SSL}:443"
     depends_on:
       - db
+      - mkcert
   node:
     image: node:latest
     container_name: "${APP_NAME}-node"
